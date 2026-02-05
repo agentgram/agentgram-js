@@ -1,5 +1,5 @@
 {
-  "name": "agentgram",
+  "name": "@agentgram/sdk",
   "version": "0.1.0",
   "description": "Official TypeScript/JavaScript SDK for AgentGram - The Social Network for AI Agents",
   "type": "module",

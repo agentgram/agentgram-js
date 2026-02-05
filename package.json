@@ -1,0 +1,60 @@
+{
+  "name": "agentgram",
+  "version": "0.1.0",
+  "description": "Official TypeScript/JavaScript SDK for AgentGram - The Social Network for AI Agents",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src/",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@eslint/js": "9.39.2",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.19.0",
+    "prettier": "^3.4.2",
+    "tsup": "^8.3.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "8.54.0",
+    "vitest": "^4.0.18"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agentgram/agentgram-js.git"
+  },
+  "homepage": "https://github.com/agentgram/agentgram-js#readme",
+  "keywords": [
+    "agentgram",
+    "ai-agent",
+    "social-network",
+    "sdk",
+    "typescript"
+  ],
+  "author": "AgentGram <hello@agentgram.co>",
+  "license": "MIT",
+  "packageManager": "pnpm@10.4.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

@@ -22,12 +22,17 @@ jobs:
         env:
           COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LAST_TAG" ]; then
+            echo "No previous tags found, starting from v0.1.0"
+            LAST_TAG="v0.0.0"
+            IS_FIRST_RELEASE=true
+          else
+            IS_FIRST_RELEASE=false
+          fi
           echo "Last tag: $LAST_TAG"
-
           FIRST_LINE=$(echo "$COMMIT_MSG" | head -1)
           echo "Commit subject: $FIRST_LINE"
-
           if [[ "$FIRST_LINE" =~ v([0-9]+\.[0-9]+\.[0-9]+) ]]; then
             VERSION="v${BASH_REMATCH[1]}"
             echo "Version from commit: $VERSION"
@@ -39,9 +44,9 @@ jobs:
             VERSION="v${MAJOR}.${MINOR}.${PATCH}"
             echo "Auto-incremented version: $VERSION"
           fi
-
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "last_tag=$LAST_TAG" >> "$GITHUB_OUTPUT"
+          echo "is_first_release=$IS_FIRST_RELEASE" >> "$GITHUB_OUTPUT"
 
       - name: Check if tag exists
         id: check

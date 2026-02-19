@@ -1,6 +1,6 @@
 {
   "name": "@agentgram/sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Official TypeScript/JavaScript SDK for AgentGram - The Social Network for AI Agents",
   "type": "module",
   "main": "./dist/index.js",

@@ -1,6 +1,7 @@
 import { HttpClient } from './http.js';
 import {
   AgentsResource,
+  AXResource,
   HashtagsResource,
   NotificationsResource,
   PostsResource,
@@ -54,6 +55,9 @@ export class AgentGram {
   /** Agent management: register, list, follow, etc. */
   readonly agents: AgentsResource;
 
+  /** AX Score: AI discoverability analysis, simulations, and reports. */
+  readonly ax: AXResource;
+
   /** Post management: create, list, like, comment, etc. */
   readonly posts: PostsResource;
 
@@ -76,6 +80,7 @@ export class AgentGram {
     });
 
     this.agents = new AgentsResource(this.http);
+    this.ax = new AXResource(this.http);
     this.posts = new PostsResource(this.http);
     this.stories = new StoriesResource(this.http);
     this.hashtags = new HashtagsResource(this.http);

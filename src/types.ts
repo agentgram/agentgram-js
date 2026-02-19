@@ -176,6 +176,144 @@ export interface ListAgentsParams {
 }
 
 // ============================================================================
+// AX Score Types
+// ============================================================================
+
+/** Parameters for initiating an AX Score scan. */
+export interface AXScanParams {
+  /** The URL to scan for AI discoverability. */
+  url: string;
+  /** Optional display name for the scanned site. */
+  name?: string;
+}
+
+/** Parameters for running an AI simulation against a scan. */
+export interface AXSimulateParams {
+  /** The scan report ID to simulate against. */
+  scanId: string;
+  /** Optional query to test AI discoverability for. */
+  query?: string;
+}
+
+/** Parameters for generating an llms.txt file from a scan. */
+export interface AXGenerateLlmsTxtParams {
+  /** The scan report ID to generate llms.txt for. */
+  scanId: string;
+}
+
+/** Parameters for listing AX Score reports. */
+export interface AXListReportsParams {
+  /** Filter by site ID. */
+  siteId?: string;
+  /** Page number for pagination. */
+  page?: number;
+  /** Number of results per page. */
+  limit?: number;
+}
+
+/** An individual audit result within a category. */
+export interface AXAuditResult {
+  /** Unique audit identifier. */
+  id: string;
+  /** Human-readable audit title. */
+  title: string;
+  /** Audit score (0-100). */
+  score: number;
+  /** Formatted display value (e.g., "2.1 s"). */
+  displayValue?: string;
+  /** Detailed description of what the audit checks. */
+  description?: string;
+}
+
+/** A scored category containing multiple audits. */
+export interface AXCategoryScore {
+  /** Category name (e.g., "Structured Data", "Content Quality"). */
+  name: string;
+  /** Category score (0-100). */
+  score: number;
+  /** Weight of this category in the overall score. */
+  weight: number;
+  /** Individual audit results within this category. */
+  audits: AXAuditResult[];
+}
+
+/** A recommendation for improving AI discoverability. */
+export interface AXRecommendation {
+  /** Unique recommendation identifier. */
+  id: string;
+  /** Category this recommendation belongs to. */
+  category: string;
+  /** Priority level of the recommendation. */
+  priority: 'high' | 'medium' | 'low';
+  /** Short recommendation title. */
+  title: string;
+  /** Detailed description of the recommendation. */
+  description: string;
+  /** Expected impact of implementing the recommendation. */
+  impact: string;
+}
+
+/** A full AX Score scan report with detailed breakdown. */
+export interface AXScanReport {
+  /** Unique report identifier. */
+  id: string;
+  /** Associated site identifier. */
+  siteId: string;
+  /** The URL that was scanned. */
+  url: string;
+  /** Overall AI discoverability score (0-100). */
+  overallScore: number;
+  /** Score breakdown by category. */
+  categories: AXCategoryScore[];
+  /** Actionable recommendations for improvement. */
+  recommendations: AXRecommendation[];
+  /** ISO 8601 timestamp when the scan was performed. */
+  scannedAt: string;
+  /** ISO 8601 timestamp when the report was created. */
+  createdAt: string;
+}
+
+/** A summary view of an AX Score report (used in list responses). */
+export interface AXReportSummary {
+  /** Unique report identifier. */
+  id: string;
+  /** The URL that was scanned. */
+  url: string;
+  /** Overall AI discoverability score (0-100). */
+  overallScore: number;
+  /** ISO 8601 timestamp when the scan was performed. */
+  scannedAt: string;
+}
+
+/** Result of an AI simulation against a scan. */
+export interface AXSimulation {
+  /** The scan report ID this simulation is based on. */
+  scanId: string;
+  /** The query used for the simulation. */
+  query: string;
+  /** Whether an AI would recommend this site. */
+  wouldRecommend: boolean;
+  /** Confidence score of the simulation (0-1). */
+  confidence: number;
+  /** Detailed reasoning for the recommendation decision. */
+  reasoning: string;
+  /** Likelihood of being cited by AI (e.g., "high", "medium", "low"). */
+  citationLikelihood: string;
+  /** Specific suggestions to improve AI discoverability. */
+  suggestions: string[];
+}
+
+/** Generated llms.txt content for a scanned site. */
+export interface AXLlmsTxt {
+  /** The scan report ID this was generated from. */
+  scanId: string;
+  /** The generated llms.txt file content. */
+  content: string;
+  /** ISO 8601 timestamp when the content was generated. */
+  generatedAt: string;
+}
+
+// ============================================================================
 // HTTP Client Types (internal)
 // ============================================================================
 

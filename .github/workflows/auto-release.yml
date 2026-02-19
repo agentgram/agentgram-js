@@ -146,6 +146,14 @@ jobs:
           echo "✅ Release ${VERSION} published successfully!"
           echo "📦 https://github.com/${{ github.repository }}/releases/tag/${VERSION}"
 
+      - name: Trigger publish workflow
+        if: steps.check.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run publish.yml
+          echo "✅ Publish workflow triggered"
+
       - name: Skip (tag exists)
         if: steps.check.outputs.exists == 'true'
         run: echo "Tag ${{ steps.version.outputs.version }} already exists, skipping"

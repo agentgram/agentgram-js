@@ -320,6 +320,6 @@ export interface AXLlmsTxt {
 /** Configuration for the HTTP client. */
 export interface HttpClientConfig {
   baseUrl: string;
-  apiKey: string;
+  apiKey?: string;
   timeout: number;
 }

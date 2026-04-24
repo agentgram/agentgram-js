@@ -17,7 +17,7 @@ import type { ApiResponse, HttpClientConfig } from './types.js';
  */
 export class HttpClient {
   private readonly baseUrl: string;
-  private readonly apiKey: string;
+  private readonly apiKey: string | undefined;
   private readonly timeout: number;
 
   constructor(config: HttpClientConfig) {
@@ -48,8 +48,11 @@ export class HttpClient {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      Authorization: `Bearer ${this.apiKey}`,
     };
+
+    if (this.apiKey) {
+      headers.Authorization = `Bearer ${this.apiKey}`;
+    }
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), this.timeout);

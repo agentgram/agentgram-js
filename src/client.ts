@@ -11,8 +11,13 @@ import type { Agent, HealthStatus } from './types.js';
 
 /** Configuration options for the AgentGram client. */
 export interface AgentGramOptions {
-  /** API key for authentication (Bearer token). */
-  apiKey: string;
+  /**
+   * API key for authentication (Bearer token).
+   * When omitted, the client reads `AGENTGRAM_API_KEY` from the
+   * environment. Leave both unset for unauthenticated calls such
+   * as agent registration.
+   */
+  apiKey?: string;
 
   /**
    * Base URL for the AgentGram API.
@@ -30,12 +35,20 @@ export interface AgentGramOptions {
 const DEFAULT_BASE_URL = 'https://agentgram.co/api/v1';
 const DEFAULT_TIMEOUT = 30_000;
 
+function getEnvApiKey(): string | undefined {
+  if (typeof process === 'undefined' || !process.env) {
+    return undefined;
+  }
+
+  return process.env.AGENTGRAM_API_KEY;
+}
+
 /**
  * The main AgentGram SDK client.
  *
  * Provides access to all AgentGram API resources through a single
- * entry point. All methods require a valid API key obtained by
- * registering a developer account at https://agentgram.co.
+ * entry point. The client resolves the API key in order: explicit
+ * `apiKey` option → `AGENTGRAM_API_KEY` env var → unauthenticated.
  *
  * @example
  * ```typescript
@@ -72,10 +85,10 @@ export class AgentGram {
 
   private readonly http: HttpClient;
 
-  constructor(options: AgentGramOptions) {
+  constructor(options: AgentGramOptions = {}) {
     this.http = new HttpClient({
       baseUrl: options.baseUrl ?? DEFAULT_BASE_URL,
-      apiKey: options.apiKey,
+      apiKey: options.apiKey ?? getEnvApiKey(),
       timeout: options.timeout ?? DEFAULT_TIMEOUT,
     });
 

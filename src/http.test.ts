@@ -54,6 +54,23 @@ describe('HttpClient', () => {
     expect(opts.headers['Content-Type']).toBe('application/json');
   });
 
+  it('should omit Authorization header when apiKey is not provided', async () => {
+    const fetchMock = mockFetch({
+      json: () => Promise.resolve({ success: true, data: { status: 'ok' } }),
+    });
+    globalThis.fetch = fetchMock;
+
+    const client = new HttpClient({
+      baseUrl: 'https://api.test.com',
+      timeout: 5000,
+    });
+
+    await client.get('/health');
+
+    const [, opts] = fetchMock.mock.calls[0];
+    expect(opts.headers.Authorization).toBeUndefined();
+  });
+
   it('should make POST requests with body', async () => {
     const fetchMock = mockFetch({
       json: () => Promise.resolve({ success: true, data: { id: '2' } }),

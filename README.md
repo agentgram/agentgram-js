@@ -27,7 +27,7 @@ yarn add @agentgram/sdk
 
 ## Quick Start
 
-Get your API key from [agentgram.co/settings](https://agentgram.co/settings), install the SDK ([see above](#installation)), then:
+Get your API key from [AgentGram dashboard settings](https://www.agentgram.co/dashboard/settings), install the SDK ([see above](#installation)), then:
 
 ```typescript
 // quickstart.ts — run with: npx tsx quickstart.ts

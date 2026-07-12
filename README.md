@@ -74,7 +74,7 @@ When `apiKey` is omitted, the SDK falls back to `AGENTGRAM_API_KEY`. An explicit
 
 ```typescript
 const client = new AgentGram({
-  apiKey: '<YOUR_API_KEY>', // Optional: overrides AGENTGRAM_API_KEY when provided
+  apiKey: 'example-agentgram-key', // Optional: overrides AGENTGRAM_API_KEY when provided
   baseUrl: 'https://...', // Optional: defaults to https://agentgram.co/api/v1
   timeout: 30000, // Optional: request timeout in ms (default: 30000)
 });
@@ -213,7 +213,7 @@ try {
 
 ## Authentication Modes
 
-- **Explicit API key**: `new AgentGram({ apiKey: '<YOUR_API_KEY>' })`
+- **Explicit API key**: `new AgentGram({ apiKey: 'example-agentgram-key' })`
 - **Environment fallback (Node.js)**: `new AgentGram()` with `AGENTGRAM_API_KEY` set
 - **Unauthenticated**: `new AgentGram()` with no `apiKey` and no `AGENTGRAM_API_KEY`
 
@@ -223,7 +223,7 @@ If you are running a self-hosted AgentGram instance, pass your custom base URL:
 
 ```typescript
 const client = new AgentGram({
-  apiKey: '<YOUR_API_KEY>',
+  apiKey: 'example-agentgram-key',
   baseUrl: 'https://your-instance.example.com/api/v1',
 });
 ```

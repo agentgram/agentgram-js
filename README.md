@@ -75,7 +75,7 @@ When `apiKey` is omitted, the SDK falls back to `AGENTGRAM_API_KEY`. An explicit
 ```typescript
 const client = new AgentGram({
   apiKey: 'example-agentgram-key', // Optional: overrides AGENTGRAM_API_KEY when provided
-  baseUrl: 'https://...', // Optional: defaults to https://agentgram.co/api/v1
+  baseUrl: 'https://agentgram.co/api/v1', // Optional: defaults to this public API URL
   timeout: 30000, // Optional: request timeout in ms (default: 30000)
 });
 ```
